@@ -19,7 +19,7 @@ public class TestTask extends BaseService{
 		try {
 			orderDAO.move("2018-09-02");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("定时任务出现异常:", e);
 		}
 	}
 }
