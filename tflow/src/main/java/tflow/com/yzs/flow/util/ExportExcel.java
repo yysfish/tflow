@@ -157,6 +157,10 @@ public class ExportExcel {
 			ExcelField annotation = f.getAnnotation(ExcelField.class);
 			if (annotation != null) {
 				list.add(new Object[] {f, annotation});
+				String jsonStr = annotation.jsonStr();
+				if (jsonStr != null && !"".equals(jsonStr)) {					
+					parseJsonStr(jsonStr, f.getName());
+				}
 			}
 		}
 		//排序
@@ -224,7 +228,7 @@ public class ExportExcel {
 			if (val == null){
 				cell.setCellValue("");
 			} else if (val instanceof String) {
-				cell.setCellValue(getValue(val.toString(), f.getName(), ex.jsonStr()));
+				cell.setCellValue(getValue(val.toString(), f.getName()));
 			} else if (val instanceof Integer) {
 				cell.setCellValue((Integer) val);
 			} else if (val instanceof Long) {
@@ -323,16 +327,18 @@ public class ExportExcel {
 		return dataRows.get(sheetIndex) == null ? rowNum:dataRows.get(sheetIndex);
 	}
 	
-	private String getValue(String key, String fieldName, String jsonStr) {
-		if (jsonStr != null && !"".equals(jsonStr)) {
-			Map<String, String> map = jsonMap.get(fieldName);
-			if (map == null) {
-				map = JSON.parseObject(jsonStr, Map.class);
-				jsonMap.put(fieldName, map);
-			}
-			key = map.get(key);
-		}
-		return key;
+	private String getValue(String key, String fieldName) {
+		Map<String, String> map = jsonMap.get(fieldName + sheetIndex);
+		return map != null? map.get(key):key;
+	}
+	
+	/**
+	 * 解析json字符串
+	 * @param jsonStr
+	 * @param fieldName
+	 */
+	private void parseJsonStr(String jsonStr, String fieldName) {
+		jsonMap.put(fieldName + sheetIndex, JSON.parseObject(jsonStr, Map.class));		
 	}
 	
 	/**

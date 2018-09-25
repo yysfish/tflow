@@ -43,7 +43,10 @@ public class UserController extends BaseController{
 			user.setSex("0");
 			List<User> list = new ArrayList<User>();
 			list.add(user);
-			new ExportExcel().createSheet("用户数据", "用户列表", User.class).addData(list).write(response, "test.xlsx");
+			new ExportExcel().
+			createSheet("用户数据", "用户列表", User.class).addData(list).
+			createSheet("userdata", User.class).addData(list).
+			write(response, "test.xlsx");
 		} catch (Exception e) {
 			logger.error("导出用户数据异常:", e);
 		}
