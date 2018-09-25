@@ -2,6 +2,8 @@ package tflow.com.yzs.flow.entity;
 
 import java.io.Serializable;
 
+import tflow.com.yzs.flow.common.annotation.ExcelField;
+
 public class User implements Serializable{
 
 	/**
@@ -11,22 +13,27 @@ public class User implements Serializable{
 	/**
 	 * 用户ID
 	 */
+	@ExcelField(title="用户ID", sort=0)
 	private String userId;
 	/**
 	 * 用户姓名
 	 */
+	@ExcelField(title="用户姓名", sort=1)
 	private String name;
 	/**
 	 * 用户性别 0-男 1-女
 	 */
+	@ExcelField(title="性别", sort=2, jsonStr="{\"0\":\"男\",\"1\":\"女\"}")
 	private String sex;
 	/**
 	 * 手机号
 	 */
+	@ExcelField(title="用户手机", sort=3)
 	private String phone;
 	/**
 	 * 登陆名
 	 */
+	@ExcelField(title="用户登录名", sort=4)
 	private String loginName;
 	/**
 	 * 登陆密码
