@@ -48,19 +48,15 @@ public class SessionController extends BaseController{
 		}
 	}
 	
-	@RequestMapping("/send{code}")
-	public ResponseModel send(@PathVariable String code, @RequestParam(required = true) String str) throws Exception {
+	@RequestMapping("/send")
+	public ResponseModel send() throws Exception {
 		try {
-			logger.info("code:" + code + ",str:" + str);
-			String key = "listKey";
-			if ("2".equals(code)) {
-				key = key + 2;
-			}
-			
-			JedisUtils.leftPush(key, str);
+			String str = "{\"0\":\"男\",\"1\":\"女\"}";
+			JedisUtils.convertAndSend("orderListener", str);
+			JedisUtils.convertAndSend("testListener", str);
 			return getSuccessModel();
 		} catch (Exception e) {
-			logger.error("发生待处理字符串失败", e);
+			logger.error("发送待处理字符串失败", e);
 			return getErrorModel(e);
 		}
 	}

@@ -101,4 +101,13 @@ public class JedisUtils {
 		return template.opsForList().rightPop(key, time, TimeUnit.SECONDS);
 	}
 	
+	/**
+	 * 向redis容器中发送主题为topic的msg消息
+	 * @param topic
+	 * @param msg
+	 */
+	public static void convertAndSend(String topic, String msg) {
+		template.convertAndSend(topic, msg);
+	}
+	
 }
