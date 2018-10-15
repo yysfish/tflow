@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
+
 import tflow.com.yzs.flow.common.BaseController;
 import tflow.com.yzs.flow.common.ResponseModel;
 import tflow.com.yzs.flow.entity.User;
@@ -51,5 +53,11 @@ public class UserController extends BaseController{
 			logger.error("导出用户数据异常:", e);
 		}
 		return null;
+	}
+	
+	@RequestMapping("/save")
+	public ResponseModel save(User user) throws Exception {
+		logger.info(JSON.toJSONString(user));
+		return getSuccessModel();
 	}
 }

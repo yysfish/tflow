@@ -2,8 +2,13 @@ package tflow.com.yzs.flow.entity;
 
 import java.io.Serializable;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import tflow.com.yzs.flow.common.annotation.ExcelField;
 
+@Document
 public class User implements Serializable{
 
 	/**
@@ -13,31 +18,37 @@ public class User implements Serializable{
 	/**
 	 * 用户ID
 	 */
+	@Id
 	@ExcelField(title="用户ID", sort=0)
 	private String userId;
 	/**
 	 * 用户姓名
 	 */
+	@Field("user_name")
 	@ExcelField(title="用户姓名", sort=1)
 	private String name;
 	/**
 	 * 用户性别 0-男 1-女
 	 */
+	@Field
 	@ExcelField(title="性别", sort=2, jsonStr="{\"0\":\"男\",\"1\":\"女\"}")
 	private String sex;
 	/**
 	 * 手机号
 	 */
+	@Field("phone_no")
 	@ExcelField(title="用户手机", sort=3)
 	private String phone;
 	/**
 	 * 登陆名
 	 */
+	@Field("login_name")
 	@ExcelField(title="用户登录名", sort=4)
 	private String loginName;
 	/**
 	 * 登陆密码
 	 */
+	@Field("login_pwd")
 	private String pwd;
 	/**
 	 * 用户类型
